@@ -1,8 +1,8 @@
-# Credence App
+# DFans App
 
-Web application for Credence system that allows teams to share sensitive files such as configuration information, credentials, etc.
+Web application for DFans system that allows teams to share sensitive photos.
 
-Please also note the Web API that it uses: https://github.com/ISS-Security/credence-api
+Please also note the Web API that it uses: https://github.com/NARO-TW/DFans-api
 
 ## Install
 
