@@ -3,8 +3,8 @@
 require 'roda'
 require 'slim'
 
-module Credence
-  # Base class for Credence Web Application
+module DFans
+  # Base class for DFans Web Application
   class App < Roda
     plugin :render, engine: 'slim', views: 'app/presentation/views'
     plugin :assets, css: 'style.css', path: 'app/presentation/assets'

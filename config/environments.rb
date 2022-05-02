@@ -4,22 +4,26 @@ require 'roda'
 require 'figaro'
 require 'logger'
 
-module Credence
+module DFans
   # Configuration for the API
   class App < Roda
     plugin :environments
 
     # Environment variables setup
     Figaro.application = Figaro::Application.new(
-      environment:,
+      environment: environment,
       path: File.expand_path('config/secrets.yml')
     )
     Figaro.load
-    def self.config = Figaro.env
-
+    def self.config
+      Figaro.env
+    end
+    
     # Logger setup
     LOGGER = Logger.new($stderr)
-    def self.logger = LOGGER
+    def self.logger
+      LOGGER
+    end
 
     configure :development, :test do
       require 'pry'

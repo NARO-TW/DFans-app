@@ -2,7 +2,7 @@
 
 require 'http'
 
-module Credence
+module DFans
   # Returns an authenticated user, or nil
   class AuthenticateAccount
     class UnauthorizedError < StandardError; end
@@ -13,7 +13,7 @@ module Credence
 
     def call(username:, password:)
       response = HTTP.post("#{@config.API_URL}/auth/authenticate",
-                           json: { username:, password: })
+                           json: { username: username, password: password})
 
       raise(UnauthorizedError) unless response.code == 200
 
