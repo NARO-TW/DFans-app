@@ -3,8 +3,9 @@
 require 'roda'
 require 'slim'
 
-module Credence
+module Dfans
   # Base class for Credence Web Application
+  # Specify where our views, assets, and public files are
   class App < Roda
     plugin :render, engine: 'slim', views: 'app/presentation/views'
     plugin :assets, css: 'style.css', path: 'app/presentation/assets'
@@ -22,6 +23,7 @@ module Credence
       response['Content-Type'] = 'text/html; charset=utf-8'
       @current_account = session[:current_account]
 
+      # inject routes for public files and assets
       routing.public
       routing.assets
       routing.multi_route

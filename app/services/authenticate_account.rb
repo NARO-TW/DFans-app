@@ -2,7 +2,7 @@
 
 require 'http'
 
-module Credence
+module Dfans
   # Returns an authenticated user, or nil
   class AuthenticateAccount
     class UnauthorizedError < StandardError; end
@@ -12,9 +12,9 @@ module Credence
     end
 
     def call(username:, password:)
+      # Use Http gem to make requestd to our Web API
       response = HTTP.post("#{@config.API_URL}/auth/authenticate",
-                           json: { username:, password: })
-
+                           json: { username: 'Default_MickyMouse', password: 'Meeska Mooska_stfk' })
       raise(UnauthorizedError) unless response.code == 200
 
       response.parse['attributes']

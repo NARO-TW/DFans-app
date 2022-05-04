@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 # Web
 gem 'puma'
 gem 'roda'
-gem 'slim'
+gem 'slim' # a templating language that produces HTML
 
 # Configuration
 gem 'figaro'
