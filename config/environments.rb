@@ -1,27 +1,24 @@
 # frozen_string_literal: true
 
+require 'delegate'
 require 'roda'
 require 'figaro'
 require 'logger'
+require 'rack/ssl-enforcer'
+require 'rack/session/redis'
+require_relative '../require_app'
 
-<<<<<<< HEAD
+require_app('lib')
+
 module DFans
-=======
-module Dfans
->>>>>>> 7593546add82e5c38b46f3d72c2fb5ebfacc280a
   # Configuration for the API
   class App < Roda
     plugin :environments
 
     # Environment variables setup
     Figaro.application = Figaro::Application.new(
-<<<<<<< HEAD
       environment: environment,
       path: File.expand_path('config/secrets.yml')
-=======
-      environment:true,
-      path:File.expand_path('config/secrets.yml')
->>>>>>> 7593546add82e5c38b46f3d72c2fb5ebfacc280a
     )
     Figaro.load
     def self.config
@@ -34,8 +31,38 @@ module Dfans
       LOGGER
     end
 
+    ONE_MONTH = 30 * 24 * 60 * 60
+
+    configure do
+      SecureMessage.setup(ENV.delete('MSG_KEY'))
+    end
+
+    configure :production do
+      SecureSession.setup(ENV.fetch('REDIS_TLS_URL')) # REDIS_TLS_URL used again below
+
+      use Rack::SslEnforcer, hsts: true
+
+      use Rack::Session::Redis,
+        expire_after: ONE_MONTH,
+        redis_server: {
+          url: ENV.delete('REDIS_TLS_URL'),
+          ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
+        }
+    end
+
     configure :development, :test do
-      require 'pry'
+      # Note: REDIS_URL only used to wipe the session store (ok to be nil)
+      SecureSession.setup(ENV['REDIS_URL']) # REDIS_URL used again below
+
+      # use Rack::Session::Cookie,
+      #     expire_after: ONE_MONTH, secret: config.SESSION_SECRET
+
+      use Rack::Session::Pool,
+          expire_after: ONE_MONTH
+
+      # use Rack::Session::Redis,
+      #     expire_after: ONE_MONTH,
+      #     redis_server: ENV.delete('REDIS_URL')
 
       # Allows running reload! in pry to restart entire app
       def self.reload!
