@@ -8,6 +8,7 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     ffi (1.15.5)
+    ffi (1.15.5-x64-mingw32)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -82,6 +83,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x64-mingw32
 
 DEPENDENCIES
   figaro
@@ -98,4 +100,4 @@ DEPENDENCIES
   slim
 
 BUNDLED WITH
-   2.3.7
+   2.3.12

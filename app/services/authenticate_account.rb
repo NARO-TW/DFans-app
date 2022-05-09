@@ -12,6 +12,7 @@ module DFans
     end
 
     def call(username:, password:)
+      # Use Http gem to make requestd to our Web API
       response = HTTP.post("#{@config.API_URL}/auth/authenticate",
                            json: { username: username, password: password})
 
