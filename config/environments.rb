@@ -37,7 +37,9 @@ module DFans
       SecureMessage.setup(ENV.delete('MSG_KEY'))
     end
 
-    configure :production do
+    configure :production do 
+      # :production: using header HSTS to redirect HTTP to HTTPS ,which enforced TLS/SSL and avoid it go back again
+      # Strict-Transport-Security: max-age=31536000 (Do not use devlopment, we will get locked out from local pc to server for a year)
       SecureSession.setup(ENV.fetch('REDIS_TLS_URL')) # REDIS_TLS_URL used again below
 
       use Rack::SslEnforcer, hsts: true
