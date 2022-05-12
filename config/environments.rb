@@ -27,9 +27,7 @@ module DFans
     
     # Logger setup
     LOGGER = Logger.new($stderr)
-    def self.logger
-      LOGGER
-    end
+    def self.logger = LOGGER
 
     ONE_MONTH = 30 * 24 * 60 * 60
 
@@ -40,6 +38,7 @@ module DFans
     configure :production do 
       # :production: using header HSTS to redirect HTTP to HTTPS ,which enforced TLS/SSL and avoid it go back again
       # Strict-Transport-Security: max-age=31536000 (Do not use devlopment, we will get locked out from local pc to server for a year)
+      # If we got locked out, we maybe have to refresh the cache or reinstall the chrome or sth
       SecureSession.setup(ENV.fetch('REDIS_TLS_URL')) # REDIS_TLS_URL used again below
 
       use Rack::SslEnforcer, hsts: true
@@ -54,7 +53,7 @@ module DFans
 
     configure :development, :test do
       # Note: REDIS_URL only used to wipe the session store (ok to be nil)
-      SecureSession.setup(ENV['REDIS_URL']) # REDIS_URL used again below
+      SecureSession.setup(ENV.fetch('REDIS_URL', nil)) # REDIS_URL used again below
 
       # use Rack::Session::Cookie,
       #     expire_after: ONE_MONTH, secret: config.SESSION_SECRET
