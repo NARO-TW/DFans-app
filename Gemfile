@@ -24,6 +24,19 @@ gem 'redis-rack'
 gem 'rack-ssl-enforcer'
 gem 'rbnacl' # assumes libsodium package already installed
 
+
+# Testing
+group :test do
+  gem 'minitest'
+  gem 'minitest-rg'
+  gem 'webmock'
+end
+
+group :development, :test do
+  gem 'rack-test'
+  gem 'rerun'
+end
+
 # Development
 group :development do
   gem 'rubocop'
