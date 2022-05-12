@@ -17,7 +17,7 @@ module DFans
 
     # Environment variables setup
     Figaro.application = Figaro::Application.new(
-      environment: environment,
+      environment:,
       path: File.expand_path('config/secrets.yml')
     )
     Figaro.load
