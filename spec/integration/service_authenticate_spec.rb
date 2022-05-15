@@ -22,7 +22,7 @@ describe 'Test Service Objects' do
              .to_return(body: @api_account.to_json,
                         headers: { 'content-type' => 'application/json' })
 
-      account = DFans::AuthenticateAccount.new(app.config).call(@credentials)
+      account = DFans::AuthenticateAccount.new(app.config).call(**@credentials)
       _(account).wont_be_nil
       _(account['username']).must_equal @api_account[:attributes][:username]
       _(account['email']).must_equal @api_account[:attributes][:email]
@@ -33,7 +33,7 @@ describe 'Test Service Objects' do
              .with(body: @mal_credentials.to_json)
              .to_return(status: 403)
       _(proc {
-        DFans::AuthenticateAccount.new(app.config).call(@mal_credentials)
+        DFans::AuthenticateAccount.new(app.config).call(**@mal_credentials)
       }).must_raise DFans::AuthenticateAccount::UnauthorizedError
     end
   end
