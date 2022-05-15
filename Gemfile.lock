@@ -9,7 +9,7 @@ GEM
       rexml
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
-    ffi (1.15.5-x64-mingw32)
+    ffi (1.15.5)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -65,9 +65,9 @@ GEM
     rerun (0.13.1)
       listen (~> 3.0)
     rexml (3.2.5)
-    roda (3.55.0)
+    roda (3.56.0)
       rack
-    rubocop (1.29.0)
+    rubocop (1.29.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -76,7 +76,7 @@ GEM
       rubocop-ast (>= 1.17.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.17.0)
+    rubocop-ast (1.18.0)
       parser (>= 3.1.1.0)
     rubocop-performance (1.13.3)
       rubocop (>= 1.7.0, < 2.0)
@@ -90,7 +90,7 @@ GEM
     tilt (2.0.10)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.8.1-x64-mingw32)
+    unf_ext (0.0.8.1)
     unicode-display_width (2.1.0)
     webmock (3.14.0)
       addressable (>= 2.8.0)
@@ -98,7 +98,7 @@ GEM
       hashdiff (>= 0.4.0, < 2.0.0)
 
 PLATFORMS
-  x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   figaro
@@ -119,6 +119,9 @@ DEPENDENCIES
   rubocop-performance
   slim
   webmock
+
+RUBY VERSION
+   ruby 3.1.1p18
 
 BUNDLED WITH
    2.3.12
