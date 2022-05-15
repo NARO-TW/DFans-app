@@ -3,8 +3,8 @@
 require 'roda'
 require 'slim'
 
-module Credence
-  # Base class for Credence Web Application
+module DFans
+  # Base class for DFans Web Application
   class App < Roda
     plugin :render, engine: 'slim', views: 'app/presentation/views'
     plugin :assets, css: 'style.css', path: 'app/presentation/assets'
@@ -12,16 +12,11 @@ module Credence
     plugin :multi_route
     plugin :flash
 
-    ONE_MONTH = 30 * 24 * 60 * 60
-
-    use Rack::Session::Cookie,
-        expire_after: ONE_MONTH,
-        secret: config.SESSION_SECRET
-
     route do |routing|
       response['Content-Type'] = 'text/html; charset=utf-8'
-      @current_account = session[:current_account]
+      @current_account = SecureSession.new(session).get(:current_account)
 
+      # inject routes for public files and assets
       routing.public
       routing.assets
       routing.multi_route

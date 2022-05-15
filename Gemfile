@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+ruby File.read('.ruby-version').strip
 
 # Web
-gem 'puma'
+gem 'puma', '~> 5.3.1'
 gem 'roda'
-gem 'slim'
+gem 'slim' # a templating language that produces HTML
 
 # Configuration
 gem 'figaro'
@@ -16,9 +17,25 @@ gem 'pry'
 
 # Communication
 gem 'http'
+gem 'redis'
+gem 'redis-rack'
 
 # Security
+gem 'rack-ssl-enforcer'
 gem 'rbnacl' # assumes libsodium package already installed
+
+
+# Testing
+group :test do
+  gem 'minitest'
+  gem 'minitest-rg'
+  gem 'webmock'
+end
+
+group :development, :test do
+  gem 'rack-test'
+  gem 'rerun'
+end
 
 # Development
 group :development do
@@ -26,7 +43,3 @@ group :development do
   gem 'rubocop-performance'
 end
 
-group :development, :test do
-  gem 'rack-test'
-  gem 'rerun'
-end

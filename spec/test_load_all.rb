@@ -5,7 +5,9 @@
 require_relative '../require_app'
 require_app
 
-def app = Credence::App
+def app
+  DFans::App
+end
 
 unless app.environment == :production
   require 'rack/test'
