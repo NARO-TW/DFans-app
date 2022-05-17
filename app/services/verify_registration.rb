@@ -8,6 +8,11 @@ module Dfans
     class VerificationError < StandardError; end
     class ApiServerError < StandardError; end
 
+    # def from_email() = ENV['SENDGRID_FROM_EMAIL']
+    # def mail_api_key() = ENV['SENDGRID_API_KEY']
+    # def mail_url() = 'https://api.sendgrid.com/v3/mail/send'
+    # end
+
     def initialize(config)
       @config = config
     end
@@ -19,7 +24,7 @@ module Dfans
 
       response = HTTP.post("#{@config.API_URL}/auth/register",
                            json: registration_data)
-      raise(VerificationError) unless response.code == 202
+      raise(VerificationError) unless response.code == 202 # Status 202 suggests the start of a process
 
       JSON.parse(response.to_s)
     rescue HTTP::ConnectionError
