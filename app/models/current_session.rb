@@ -2,7 +2,7 @@
 
 require_relative './account'
 
-module Credence
+module Dfans
   # Managing session information
   class CurrentSession
     def initialize(session)

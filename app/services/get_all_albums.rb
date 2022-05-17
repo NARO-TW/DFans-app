@@ -3,14 +3,14 @@
 require 'http'
 
 # Returns all projects belonging to an account
-class GetAllProjects
+class GetAllAlbums
   def initialize(config)
     @config = config
   end
 
   def call(current_account)
     response = HTTP.auth("Bearer #{current_account.auth_token}")
-                   .get("#{@config.API_URL}/projects")
+                   .get("#{@config.API_URL}/ablums")
 
     response.code == 200 ? JSON.parse(response.to_s)['data'] : nil
   end
