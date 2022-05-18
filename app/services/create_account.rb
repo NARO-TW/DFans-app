@@ -7,7 +7,9 @@ module DFans
   class CreateAccount
     # Error for accounts that cannot be created
     class InvalidAccount < StandardError
-      def message = 'This account can no longer be created: please start again'
+      def message
+        'This account can no longer be created: please start again'
+      end
     end
 
     def initialize(config)
@@ -15,9 +17,9 @@ module DFans
     end
 
     def call(email:, username:, password:)
-      message = { email:,
-                  username:,
-                  password: }
+      message = { email: email,
+                  username: username,
+                  password: password}
 
       response = HTTP.post(
         "#{@config.API_URL}/accounts/",

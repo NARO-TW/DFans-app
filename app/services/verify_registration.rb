@@ -2,7 +2,7 @@
 
 require 'http'
 
-module Dfans
+module DFans
   # Returns an authenticated user, or nil
   class VerifyRegistration
     class VerificationError < StandardError; end

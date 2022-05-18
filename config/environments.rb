@@ -17,7 +17,7 @@ module DFans
 
     # Environment variables setup
     Figaro.application = Figaro::Application.new(
-      environment:,
+      environment: environment,
       path: File.expand_path('config/secrets.yml')
     )
     Figaro.load
@@ -27,8 +27,10 @@ module DFans
     
     # Logger setup
     LOGGER = Logger.new($stderr)
-    def self.logger = LOGGER
-
+    def self.logger
+      LOGGER
+    end
+    
     ONE_MONTH = 30 * 24 * 60 * 60
 
     configure do

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Dfans
+module DFans
   # Behaviors of the currently logged in account
   class Album
     attr_reader :id, :name, :repo_url

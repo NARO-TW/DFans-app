@@ -28,7 +28,6 @@ module DFans
 
           CurrentSession.new(session).set(:current_account, account)
 
-
           flash[:notice] = "Welcome back #{account['username']}!"
           routing.redirect '/'
         rescue AuthenticateAccount::UnauthorizedError
@@ -83,8 +82,8 @@ module DFans
           flash.now[:notice] = 'Email Verified! Please choose a new password'
           new_account = SecureMessage.decrypt(registration_token)
           view :register_confirm,
-               locals: { new_account:,
-                         registration_token: }
+               locals: { new_account: new_account,
+                         registration_token: registration_token}
         end
       end
     end
