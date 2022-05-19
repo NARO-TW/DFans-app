@@ -1,17 +1,17 @@
 div class="row" style="vertical-align: bottom;"
   div class="col-xs-9"
-    h3 All Projects
+    h3 All Albums
   div class="col-xs-3"
 table class="table"
   thead
     tr
-      th Project name
-      th Repo URL
+      th Album name
+      th Description
   tbody
-    - projects.all.each do |proj|
+    - albums.all.each do |alb|
       tr
         td 
-          a href="/account/projects/#{proj.id}" #{proj.name}
+          a href="/account/albums/#{alb.id}" #{alb.name}
           td 
-            a href="#{proj.repo_url}" #{proj.repo_url}
+            a href="#{alb.description}" #{alb.description}
             

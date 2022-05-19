@@ -7,8 +7,7 @@ describe 'Test Service Objects' do
   before do
     @credentials = { username: 'soumya.ray', password: 'mypa$$w0rd' }
     @mal_credentials = { username: 'soumya.ray', password: 'wrongpassword' }
-    @api_account = { attributes:
-                       { username: 'soumya.ray', email: 'sray@nthu.edu.tw' } }
+    @api_account = { username: 'soumya.ray', email: 'sray@nthu.edu.tw' }
   end
 
   after do
@@ -35,8 +34,8 @@ describe 'Test Service Objects' do
 
       account = auth[:account]
       _(account).wont_be_nil
-      _(account['username']).must_equal @api_account[:attributes][:username]
-      _(account['email']).must_equal @api_account[:attributes][:email]
+      _(account['username']).must_equal @api_account[:username]
+      _(account['email']).must_equal @api_account[:email]
     end
 
     it 'BAD: should not find a false authenticated account' do
