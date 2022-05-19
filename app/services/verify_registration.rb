@@ -8,11 +8,6 @@ module DFans
     class VerificationError < StandardError; end
     class ApiServerError < StandardError; end
 
-    # def from_email() = ENV['SENDGRID_FROM_EMAIL']
-    # def mail_api_key() = ENV['SENDGRID_API_KEY']
-    # def mail_url() = 'https://api.sendgrid.com/v3/mail/send'
-    # end
-
     def initialize(config)
       @config = config
     end
