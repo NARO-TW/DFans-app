@@ -3,7 +3,7 @@
 require 'roda'
 
 module DFans
-  # Web controller for Credence API
+  # Web controller for DFans API
   class App < Roda
     route('albums') do |routing|
       routing.on do

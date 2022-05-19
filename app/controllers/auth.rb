@@ -16,7 +16,7 @@ module DFans
 
         # POST /auth/login
         routing.post do
-          account = AuthenticateAccount.new(App.config).call(
+          account_info = AuthenticateAccount.new(App.config).call(
             username: routing.params['username'],
             password: routing.params['password']
           )
@@ -60,7 +60,7 @@ module DFans
             view :register
           end
         
-        # POST /auth/register
+          # POST /auth/register
           routing.post do
             account_data = JsonRequestBody.symbolize(routing.params)
             VerifyRegistration.new(App.config).call(account_data)
@@ -82,8 +82,8 @@ module DFans
           flash.now[:notice] = 'Email Verified! Please choose a new password'
           new_account = SecureMessage.decrypt(registration_token)
           view :register_confirm,
-               locals: { new_account: new_account,
-                         registration_token: registration_token}
+               locals: { new_account:,
+                         registration_token:}
         end
       end
     end

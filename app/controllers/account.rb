@@ -16,6 +16,7 @@ module DFans
             routing.redirect '/auth/login'
           end
         end
+        
         # POST /account/<registration_token>
         routing.post String do |registration_token|
           raise 'Passwords do not match or empty' if
