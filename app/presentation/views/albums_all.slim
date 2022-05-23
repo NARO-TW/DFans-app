@@ -1,17 +1,17 @@
 div class="row" style="vertical-align: bottom;"
   div class="col-xs-9"
-    h3 All Albums
+    h3 Albums
   div class="col-xs-3"
+    button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newAlbumModal" + New Album
 table class="table"
   thead
     tr
       th Album name
-      th Description
   tbody
-    - albums.all.each do |alb|
+    - albums.all.each do |album|
       tr
         td 
-          a href="/account/albums/#{alb.id}" #{alb.name}
-          td 
-            a href="#{alb.description}" #{alb.description}
+          a href="/albums/#{album.id}" #{album.name}
+
+include :album_new_partial
             

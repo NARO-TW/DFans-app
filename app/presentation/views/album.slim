@@ -1,0 +1,58 @@
+h2
+  == "#{album.name}"
+
+div class="row"
+  div class="col-lg-9"
+    div class="row"
+      table class="table"
+        thead
+          tr
+            th File
+            th Description
+        tbody
+          - album.photos.each do |photo|
+            tr
+              td 
+                a href="/photos/#{photo.id}"
+                  == "#{photo.filename}"
+              td #{photo.description}
+    div class="row"
+      div class="col-xs-4"
+        - if album.policies.can_add_photos
+          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPhotoModal" + New Photo
+    div class="row" style="height:10px;"
+  div class="col-lg-3"
+    div class="panel panel-default"
+      div class="panel-heading" Participants
+      div class="panel-body"
+        - if album.participants.empty?
+          span class="small" There are no participants yet
+        ul class="list-group"
+          li class="list-group-item clearfix"
+              = album.owner.username
+          - album.participants.each do |participant|
+            li class="list-group-item clearfix"
+              '  #{participant.username}
+              - if album.policies.can_remove_participants
+                span class="float-end"
+                  form role='form' method='post' action="/albums/#{album.id}/participants"
+                    input type='hidden' name='action' value='remove'
+                    input type='hidden' name='email' value="#{participant.email}"
+                    button type="submit" class="btn btn-xs btn-default"
+                      span class="fas fa-user-times"
+        - if album.policies.can_add_participants
+          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newParticipantModal" + Add Participant
+
+include :photo_new_partial
+include :participant_new_partial
+
+.row
+  .text-center
+    - if album.policies.can_edit
+      a href="" edit album
+    - if album.policies.can_delete
+      == ' | '
+      a href="" delete album
+    - if album.policies.can_leave
+      == ' | '
+      a href="" leave album
