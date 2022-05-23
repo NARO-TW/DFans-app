@@ -1,0 +1,17 @@
+div class="row" style="vertical-align: bottom;"
+  div class="col-xs-9"
+    h3 All Albums
+  div class="col-xs-3"
+table class="table"
+  thead
+    tr
+      th Album name
+      th Description
+  tbody
+    - albums.all.each do |alb|
+      tr
+        td 
+          a href="/account/albums/#{alb.id}" #{alb.name}
+          td 
+            a href="#{alb.description}" #{alb.description}
+            

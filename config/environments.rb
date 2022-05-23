@@ -17,27 +17,28 @@ module DFans
 
     # Environment variables setup
     Figaro.application = Figaro::Application.new(
-      environment:,
+      environment: environment,
       path: File.expand_path('config/secrets.yml')
     )
     Figaro.load
     def self.config
       Figaro.env
     end
-    
     # Logger setup
     LOGGER = Logger.new($stderr)
-    def self.logger = LOGGER
-
+    def self.logger
+      LOGGER
+    end
     ONE_MONTH = 30 * 24 * 60 * 60
 
     configure do
       SecureMessage.setup(ENV.delete('MSG_KEY'))
     end
 
-    configure :production do 
+    configure :production do
       # :production: using header HSTS to redirect HTTP to HTTPS ,which enforced TLS/SSL and avoid it go back again
-      # Strict-Transport-Security: max-age=31536000 (Do not use devlopment, we will get locked out from local pc to server for a year)
+      # Strict-Transport-Security: max-age=31536000
+      # (Do not use devlopment, we will get locked out from local pc to server for a year)
       # If we got locked out, we maybe have to refresh the cache or reinstall the chrome or sth
       SecureSession.setup(ENV.fetch('REDIS_TLS_URL')) # REDIS_TLS_URL used again below
 
@@ -52,7 +53,9 @@ module DFans
     end
 
     configure :development, :test do
-      # Note: REDIS_URL only used to wipe the session store (ok to be nil)
+      require 'pry'
+
+      # NOTE: REDIS_URL only used to wipe the session store (ok to be nil)
       SecureSession.setup(ENV.fetch('REDIS_URL', nil)) # REDIS_URL used again below
 
       # use Rack::Session::Cookie,
@@ -66,9 +69,7 @@ module DFans
       #     redis_server: ENV.delete('REDIS_URL')
 
       # Allows running reload! in pry to restart entire app
-      def self.reload!
-        exec 'pry -r ./spec/test_load_all'
-      end
+      def self.reload! = exec 'pry -r ./spec/test_load_all'
     end
   end
 end

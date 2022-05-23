@@ -16,12 +16,16 @@ module DFans
     def call(username:, password:)
       # Use Http gem to make requestd to our Web API
       response = HTTP.post("#{@config.API_URL}/auth/authenticate",
-                           json: { username:, password: })
+                           json: { username: username, password: password})
 
       raise(UnauthorizedError) if response.code == 403
       raise(ApiServerError) if response.code != 200
 
-      response.parse['attributes']
+      account_info = JSON.parse(response.to_s)['attributes']
+      { account: account_info['account']['attributes'],
+        auth_token: account_info['auth_token'] }
+    rescue HTTP::ConnectionError
+      raise ApiServerError
     end
   end
 end

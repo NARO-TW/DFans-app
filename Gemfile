@@ -6,14 +6,11 @@ ruby File.read('.ruby-version').strip
 # Web
 gem 'puma', '~> 5.3.1'
 gem 'roda'
-gem 'slim' # a templating language that produces HTML
+gem 'slim'
 
 # Configuration
 gem 'figaro'
 gem 'rake'
-
-# Debugging
-gem 'pry'
 
 # Communication
 gem 'http'
@@ -24,6 +21,15 @@ gem 'redis-rack'
 gem 'rack-ssl-enforcer'
 gem 'rbnacl' # assumes libsodium package already installed
 
+# Debugging
+gem 'pry'
+gem 'rack-test'
+
+# Development
+group :development do
+  gem 'rubocop'
+  gem 'rubocop-performance'
+end
 
 # Testing
 group :test do
@@ -33,13 +39,5 @@ group :test do
 end
 
 group :development, :test do
-  gem 'rack-test'
   gem 'rerun'
 end
-
-# Development
-group :development do
-  gem 'rubocop'
-  gem 'rubocop-performance'
-end
-
