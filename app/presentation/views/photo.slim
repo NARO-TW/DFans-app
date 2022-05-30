@@ -1,0 +1,16 @@
+h2 
+  a href="/albums/#{photo.album.id}" #{photo.album.name}
+
+dl
+  div class="row"
+    div class="col-xs-3"
+      dt Description:
+    div class="col-xs-9"
+      dd class="blockquote" #{photo.description}
+    div class="col-xs-3"
+      dt Photo:
+    div class="col-xs-9"
+      dd class="blockquote"
+        a data-bs-toggle="collapse" href="#photo" aria-expanded="false" aria-controls="photo" show photo
+        div id="photo" class="collapse"
+          dov class="card card-body"
