@@ -74,9 +74,8 @@ module DFans
             )
 
             flash[:notice] = 'Your photo was added'
-          rescue StandardError => error
-            puts error.inspect
-            puts error.backtrace
+          rescue StandardError => e
+            puts "ERROR CREATING DOCUMENT: #{e.inspect}"
             flash[:error] = 'Could not add photo'
           ensure
             routing.redirect @album_route
@@ -97,7 +96,7 @@ module DFans
         # POST /albums/
         routing.post do
           routing.redirect '/auth/login' unless @current_account.logged_in?
-          puts "PROJ: #{routing.params}"
+
           album_data = Form::NewAlbum.new.call(routing.params)
           if album_data.failure?
             flash[:error] = Form.message_values(album_data)
