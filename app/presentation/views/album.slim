@@ -23,13 +23,16 @@ div class="row"
     div class="row" style="height:10px;"
   div class="col-lg-3"
     div class="panel panel-default"
+      div class="panel-heading" Owner
+      div class="panel-body"
+        ul class="list-group"
+          li class="list-group-item clearfix"
+              = "#{album.owner.account_info["attributes"]["username"]}"
       div class="panel-heading" Participants
       div class="panel-body"
         - if album.participants.empty?
           span class="small" There are no participants yet
         ul class="list-group"
-          li class="list-group-item clearfix"
-              = album.owner.username
           - album.participants.each do |participant|
             li class="list-group-item clearfix"
               '  #{participant.username}

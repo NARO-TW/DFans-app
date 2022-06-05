@@ -3,7 +3,7 @@
 require 'roda'
 
 module DFans
-  # Web controller for Credence API
+  # Web controller for DFans API
   class App < Roda
     route('albums') do |routing|
       routing.on do
@@ -19,7 +19,6 @@ module DFans
               @current_account, album_id
             )
             album = Album.new(album_info)
-
             view :album, locals: {
               current_account: @current_account, album: album
             }
@@ -32,29 +31,29 @@ module DFans
           # POST /albums/[album_id]/participants
           routing.post('participants') do
             action = routing.params['action']
-            collaborator_info = Form::ParticipantEmail.new.call(routing.params)
-            if collaborator_info.failure?
-              flash[:error] = Form.validation_errors(collaborator_info)
+            participant_info = Form::ParticipantEmail.new.call(routing.params)
+            if participant_info.failure?
+              flash[:error] = Form.validation_errors(participant_info)
               routing.halt
             end
 
             task_list = {
               'add' => { service: AddParticipant,
-                         message: 'Added new collaborator to album' },
+                         message: 'Added new participant to album' },
               'remove' => { service: RemoveParticipant,
-                            message: 'Removed collaborator from album' }
+                            message: 'Removed participant from album' }
             }
 
             task = task_list[action]
             task[:service].new(App.config).call(
               current_account: @current_account,
-              collaborator: collaborator_info,
+              participant: participant_info,
               album_id: album_id
             )
             flash[:notice] = task[:message]
 
           rescue StandardError
-            flash[:error] = 'Could not find collaborator'
+            flash[:error] = 'Could not find participant'
           ensure
             routing.redirect @album_route
           end
@@ -74,9 +73,8 @@ module DFans
             )
 
             flash[:notice] = 'Your photo was added'
-          rescue StandardError => error
-            puts error.inspect
-            puts error.backtrace
+          rescue StandardError => e
+            puts "ERROR CREATING DOCUMENT: #{e.inspect}"
             flash[:error] = 'Could not add photo'
           ensure
             routing.redirect @album_route
@@ -97,7 +95,6 @@ module DFans
         # POST /albums/
         routing.post do
           routing.redirect '/auth/login' unless @current_account.logged_in?
-          puts "PROJ: #{routing.params}"
           album_data = Form::NewAlbum.new.call(routing.params)
           if album_data.failure?
             flash[:error] = Form.message_values(album_data)

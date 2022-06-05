@@ -16,7 +16,6 @@ module DFans
     route do |routing|
       response['Content-Type'] = 'text/html; charset=utf-8'
       @current_account = CurrentSession.new(session).current_account
-
       # inject routes for public files and assets
       routing.public
       routing.assets

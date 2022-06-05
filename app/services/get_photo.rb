@@ -3,7 +3,7 @@
 require 'http'
 
 module DFans
-  # Returns all projects belonging to an account
+  # Returns all albums belonging to an account
   class GetPhoto
     def initialize(config)
       @config = config
