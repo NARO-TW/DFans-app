@@ -19,7 +19,7 @@ module DFans
       @login_route = '/auth/login'
       routing.is 'login' do
         # GET /auth/login
-        routing.get do
+        routing.get do 
           view :login, locals: {
             gh_oauth_url: gh_oauth_url(App.config)
           }
@@ -28,7 +28,6 @@ module DFans
         # POST /auth/login
         routing.post do
           credentials = Form::LoginCredentials.new.call(routing.params)
-
           if credentials.failure?
             flash[:error] = 'Please enter both username and password'
             routing.redirect @login_route
@@ -106,7 +105,6 @@ module DFans
           # POST /auth/register
           routing.post do
             registration = Form::Registration.new.call(routing.params)
-
             if registration.failure?
               flash[:error] = Form.validation_errors(registration)
               routing.redirect @register_route
