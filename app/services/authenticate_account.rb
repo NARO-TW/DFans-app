@@ -11,7 +11,7 @@ module DFans
 
     def call(username:, password:)
       response = HTTP.post("#{ENV['API_URL']}/auth/authenticate",
-                           json: { username:, password: })
+                           json: { username: username, password: password})
 
       raise(NotAuthenticatedError) if response.code == 401
       raise(ApiServerError) if response.code != 200

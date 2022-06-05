@@ -75,7 +75,9 @@ module DFans
       require 'pry'
 
       # Allows running reload! in pry to restart entire app
-      def self.reload! = exec 'pry -r ./spec/test_load_all'
+      def self.reload!
+        exec 'pry -r ./spec/test_load_all'
+      end
     end
   end
 end
