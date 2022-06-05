@@ -8,7 +8,7 @@ module DFans
   class App < Roda
     route('account') do |routing|
       routing.on do
-        # GET /account/
+        # GET /account/[username]
         routing.get String do |username|
           account = GetAccountDetails.new(App.config).call(
             @current_account, username
