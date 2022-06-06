@@ -41,7 +41,6 @@ module DFans
           )
 
           CurrentSession.new(session).current_account = current_account
-
           flash[:notice] = "Welcome back #{current_account.username}!"
           routing.redirect '/albums'
         rescue AuthenticateAccount::NotAuthenticatedError
