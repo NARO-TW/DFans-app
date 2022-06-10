@@ -5,7 +5,8 @@ div id="newPhotoModal" class="modal fade" role="dialog"
         h4 New Photo
         button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
       div class="modal-body"
-        form role="form" action="/albums/#{album.id}/photos" method='post' id='new-photo-form'
+        form role="form" action="/albums/#{album.id}/photos" method='post' id='new-photo-form' 
+        
           div class="form-group"
             label for='filename_input' File Name:
             input type='text' name='filename' id='filename_input' class="form-control" placeholder="Filename is required"
@@ -17,3 +18,6 @@ div id="newPhotoModal" class="modal fade" role="dialog"
             textarea name='content' id='content_input' class="form-control" placeholder="Copy/paste your photo here"
           button type='submit' class="btn btn-primary submit" id='registration-form-submit' value='submit' Create
           button type="button" class="btn btn-secondary" data-bs-dismiss="modal" Cancel
+
+          div class="row"         
+            button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPhotoModal" + unencrypted Photo          

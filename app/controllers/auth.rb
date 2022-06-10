@@ -119,6 +119,7 @@ module DFans
             flash[:error] = 'Our servers are not responding -- please try later'
             routing.redirect @register_route
           rescue StandardError => e
+            puts e.full_message
             App.logger.error "Could not verify registration: #{e.inspect}"
             flash[:error] = 'Please use English characters for username only'
             routing.redirect @register_route
