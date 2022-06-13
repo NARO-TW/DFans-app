@@ -16,6 +16,10 @@ module DFans
 
         view :photo, locals: {
           current_account: @current_account, photo: photo
+          ## photo:
+          # filename: string
+          # image_data: base64 encoded string
+          # description: string
         }
       end
     end
