@@ -1,11 +1,19 @@
-div id="upload" class="modal fade" role="dialog" 
-  div class="modal-dialog mb-3"
+div id="newPhotoModal2" class="modal fade" role="dialog"
+  div class="modal-dialog"
     div class="modal-content"
-        label.form-label for="formFile"  Default file input example
-        input#formFile.form-control type="file" /
-    div class = "mb-3"
-      label.form-label for="formFileSm"  Small file input example
-      input#formFileSm.form-control.form-control-sm type="file" /
-    div
-      label.form-label for="formFileLg"  Large file input example
-      input#formFileLg.form-control.form-control-lg type="file" /
+      div class="modal-header"
+        h4 New Photo
+        button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      div class="modal-body"
+        form role="form" action="/albums/#{album.id}/photos" method='post' id='new-photo-form' 
+          div class="form-group"
+            label for='filename_input' File Name:
+            input type='text' name='filename' id='filename_input' class="form-control" placeholder="Filename is required"
+          div class="form-group"
+            label for='description_input' Description:
+            input type='text' name='description' id='description_input' class="form-control" placeholder="Describe the file"
+          div class="form-group"
+            label for='formFile' class="form-label" Default file input example
+            input class="form-control" type="file" id="formFile"
+          button type='submit' class="btn btn-primary submit" id='registration-form-submit' value='submit' Create
+          button type="button" class="btn btn-secondary" data-bs-dismiss="modal" Cancel    
