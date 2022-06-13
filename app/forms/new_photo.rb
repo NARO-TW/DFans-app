@@ -10,6 +10,7 @@ module DFans
       params do
         required(:filename).filled(max_size?: 256, format?: FILENAME_REGEX)
         required(:description).maybe(:string)
+        required(:file).filled(:hash)
       end
     end
   end
