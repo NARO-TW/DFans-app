@@ -109,11 +109,14 @@ module DFans
               flash[:error] = Form.validation_errors(registration)
               routing.redirect @register_route
             end
-
             VerifyRegistration.new(App.config).call(registration)
 
             flash[:notice] = 'Please check your email for a verification link'
             routing.redirect '/'
+          rescue VerifyRegistration::VerificationError => e
+            App.logger.warn "Verification error: #{e.inspect}\n#{e.backtrace}"
+            flash[:error] = 'Name or Email has been registered'
+            routing.redirect @register_route
           rescue VerifyRegistration::ApiServerError => e
             App.logger.warn "API server error: #{e.inspect}\n#{e.backtrace}"
             flash[:error] = 'Our servers are not responding -- please try later'
