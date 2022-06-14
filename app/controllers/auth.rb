@@ -41,7 +41,6 @@ module DFans
           )
 
           CurrentSession.new(session).current_account = current_account
-
           flash[:notice] = "Welcome back #{current_account.username}!"
           routing.redirect '/albums'
         rescue AuthenticateAccount::NotAuthenticatedError
@@ -109,16 +108,20 @@ module DFans
               flash[:error] = Form.validation_errors(registration)
               routing.redirect @register_route
             end
-
             VerifyRegistration.new(App.config).call(registration)
 
             flash[:notice] = 'Please check your email for a verification link'
             routing.redirect '/'
+          rescue VerifyRegistration::VerificationError => e
+            App.logger.warn "Verification error: #{e.inspect}\n#{e.backtrace}"
+            flash[:error] = 'Name or Email has been registered'
+            routing.redirect @register_route
           rescue VerifyRegistration::ApiServerError => e
             App.logger.warn "API server error: #{e.inspect}\n#{e.backtrace}"
             flash[:error] = 'Our servers are not responding -- please try later'
             routing.redirect @register_route
           rescue StandardError => e
+            puts e.full_message
             App.logger.error "Could not verify registration: #{e.inspect}"
             flash[:error] = 'Please use English characters for username only'
             routing.redirect @register_route

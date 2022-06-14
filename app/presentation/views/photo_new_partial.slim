@@ -5,7 +5,7 @@ div id="newPhotoModal" class="modal fade" role="dialog"
         h4 New Photo
         button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
       div class="modal-body"
-        form role="form" action="/albums/#{album.id}/photos" method='post' id='new-photo-form'
+        form role="form" action="/albums/#{album.id}/photos" method='post' id='new-photo-form' enctype="multipart/form-data"
           div class="form-group"
             label for='filename_input' File Name:
             input type='text' name='filename' id='filename_input' class="form-control" placeholder="Filename is required"
@@ -13,7 +13,83 @@ div id="newPhotoModal" class="modal fade" role="dialog"
             label for='description_input' Description:
             input type='text' name='description' id='description_input' class="form-control" placeholder="Describe the file"
           div class="form-group"
-            label for='photo_input' Photo:
-            textarea name='content' id='content_input' class="form-control" placeholder="Copy/paste your photo here"
+            label for='file_input' class="form-label" Default file input example
+            input type="file" name='file' id="file_input" accept="image/*" class="form-control"
           button type='submit' class="btn btn-primary submit" id='registration-form-submit' value='submit' Create
           button type="button" class="btn btn-secondary" data-bs-dismiss="modal" Cancel
+
+        // Preview
+        h4 class= "mt-2" Preview:
+        div id="previewDiv"
+
+javascript:
+  const selectedFile = document.getElementById('file_input').files;
+  const fileUploader = document.getElementById('file_input');
+  console.log(fileUploader);
+
+  fileUploader.addEventListener('change', (event) => {
+    const files = event.target.files;
+    console.log('files', files);
+    previewFiles(files)
+  });
+
+  /*function fileUpload(sender) {
+   var fileList = sender.currentTarget.files;
+   var file = fileList[0];
+   console.log("fileUpload");
+   console.log(file);
+   }
+
+  console.log(document.getElementById('file-uploader'));
+  console.log(selectedFile);
+  const fileUploader_q = document.querySelector('#file-uploader');
+  fileUploader_q.addEventListener('change', (e) => {
+    e.target.files; // FileList object
+    e.target.files[0]; // File Object (Special Blob)
+  });
+  console.log(fileUploader_q);
+  const file = document.getElementById('file-uploader').files[0];
+  file instanceof File; // true
+  console.log(file instanceof File);*/
+
+  // 預覽圖片，將取得的files一個個取出丟到convertFile()
+  function previewFiles(files) {
+      if (files.length >= 1) {
+          $.map(files, file => {
+              convertFile(file)
+                  .then(data => {
+                    console.log(data) // 把編碼後的字串輸出到console
+                    showPreviewImage(data, file.name)
+                  })
+                  .catch(err => console.log(err))
+          })
+      }
+  }
+
+  // 使用FileReader讀取檔案，並且回傳Base64編碼後的source
+  function convertFile(file) {
+      return new Promise((resolve,reject)=>{
+          // 建立FileReader物件
+          let reader = new FileReader()
+          // 註冊onload事件，取得result則resolve (會是一個Base64字串)
+          reader.onload = () => { resolve(reader.result) }
+          // 註冊onerror事件，若發生error則reject
+          reader.onerror = () => { reject(reader.error) }
+          // 讀取檔案
+          reader.readAsDataURL(file)
+      })
+  }
+
+  // 在頁面上新增<img>
+  function showPreviewImage(src, fileName) {
+      let image = new Image(400) // 設定寬250px
+      image.name = fileName
+      image.src = src // <img>中src屬性除了接url外也可以直接接Base64字串
+      $("#previewDiv").append(image).append(`<p>File: ${image.name}`)
+  }
+
+  // 當上傳檔案改變時清除目前預覽圖，並且呼叫previewFiles()
+  $("#upimg").change(function(){
+      $("#previewDiv").empty() // 清空當下預覽
+      previewFiles(this.files) // this即為<input>元素
+  })

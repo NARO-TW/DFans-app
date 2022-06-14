@@ -8,6 +8,9 @@ gem 'puma', '~> 5.3.1'
 gem 'roda'
 gem 'slim'
 
+# File handling
+gem 'shrine'
+
 # Configuration
 gem 'figaro'
 gem 'rake'
