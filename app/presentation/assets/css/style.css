@@ -1,3 +1,29 @@
+:root {
+  --banner_height: 100vh;
+}
+
+#banner {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),url(/banner.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: var(--banner_height);
+  width: 100vw;
+  position: relative;
+  left: calc(-50vw + 50%);
+  top: calc(-50vh + 50%);
+}
+
+#banner >.row{
+  height: var(--banner_height);
+}
+
+.banner-word {
+  border-top: 1px solid #ebebeb;
+  border-bottom: 1px solid #ebebeb;
+}
+
 .force-wrap {
   word-wrap:break-word;
   width:100%;

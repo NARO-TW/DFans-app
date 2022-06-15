@@ -1,9 +1,7 @@
-h1 Welcome to DFans
-p This site allows you to share sensitive photos, no matter what the reason might be.
-  
-p
-  i Please avoid sharing illegal photos at this point.
-
-- unless current_account.logged_in?
-  p 
-    a href='/auth/login' login to start!
+div id="banner"
+  div class="row g-0 text-light justify-content-center align-items-center"
+    div class="banner-word col-lg-6 text-center"
+      h1 class="m-0" style="font-size: 10rem;" DFans
+      p Share file in secure.
+      - unless current_account.logged_in?
+        a href="/auth/register" class="btn btn-primary mb-4" Free Sign Up
