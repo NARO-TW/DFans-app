@@ -2,7 +2,7 @@ require 'base64'
 
 class GetImg
     def self.get_img(param)
-        tempfile = param["file"][:tempfile]
+        tempfile = param["image_data"][:tempfile]
 
         # Open the file you wish to encode
         data = File.open(tempfile.path).read
