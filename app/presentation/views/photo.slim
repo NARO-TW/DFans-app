@@ -11,7 +11,26 @@ dl
       dt Photo:
     div class="col-xs-9"
       dd class="blockquote"
-        a data-bs-toggle="collapse" href="#photo" aria-expanded="false" aria-controls="photo" show photo
+        a id="photo_viewer" data-bs-toggle="collapse" href="#photo" aria-expanded="false" aria-controls="photo" show photo
         div id="photo" class="collapse"
-          dov class="card card-body"
-            pre class="force-wrap" #{photo.image_data}
+          dov id="viewImageSection" class="card card-body"
+            /pre class="force-wrap" #{photo.image_data}
+
+javascript:
+  const imageViewer = document.getElementById('photo_viewer');
+  console.log(imageViewer);
+
+  imageViewer.addEventListener('click', (event) => {
+    const image = "data:image/png;base64," + "#{photo.image_data}";
+    const filename = "#{photo.filename}";
+    showImage(image, filename)
+  });
+
+  // 在頁面上新增<img>
+  function showImage(src, fileName) {
+      let image = new Image(400) // 設定寬250px
+      image.name = fileName
+      image.src = src // <img>中src屬性除了接url外也可以直接接Base64字串
+      image.alt = "This is the photo store in the database."
+      $("#viewImageSection").append(image)
+  }
