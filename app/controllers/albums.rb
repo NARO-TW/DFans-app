@@ -60,8 +60,6 @@ module DFans
 
           # POST /albums/[album_id]/photos/
           routing.post('photos') do
-            puts "In Photo: routing.params: #{routing.params}"
-            puts "routing.params.keys(): #{routing.params.keys()}"
             result = GetImg.get_img(routing.params)
             photo_data = Form::NewPhoto.new.call(result)
             if photo_data.failure?
