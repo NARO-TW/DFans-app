@@ -13,11 +13,11 @@ module DFans
         pho_info = GetPhoto.new(App.config)
                               .call(@current_account, pho_id)
         photo = Photo.new(pho_info)
-
         view :photo, locals: {
           current_account: @current_account, photo: photo
           ## photo:
           # filename: string
+          # filetype: image/png
           # image_data: base64 encoded string
           # description: string
         }
