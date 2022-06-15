@@ -11,6 +11,7 @@ module DFans
         required(:filename).filled(max_size?: 256, format?: FILENAME_REGEX)
         required(:description).maybe(:string)
         required(:image_data).filled(:string)
+        required(:filetype).filled(:string)
       end
     end
   end

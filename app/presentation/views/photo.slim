@@ -21,7 +21,7 @@ javascript:
   console.log(imageViewer);
 
   imageViewer.addEventListener('click', (event) => {
-    const image = "data:image/png;base64," + "#{photo.image_data}";
+    const image = "data:#{photo.filetype};base64,#{photo.image_data}";
     const filename = "#{photo.filename}";
     showImage(image, filename)
   });

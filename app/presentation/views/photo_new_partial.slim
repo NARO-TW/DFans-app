@@ -58,7 +58,7 @@ javascript:
           $.map(files, file => {
               convertFile(file)
                   .then(data => {
-                    console.log(data) // 把編碼後的字串輸出到console
+                    //console.log(data) // 把編碼後的字串輸出到console
                     showPreviewImage(data, file.name)
                   })
                   .catch(err => console.log(err))
