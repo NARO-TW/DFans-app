@@ -60,13 +60,14 @@ module DFans
 
           # POST /albums/[album_id]/photos/
           routing.post('photos') do
+            binding.pry
             result = GetImg.get_img(routing.params)
             photo_data = Form::NewPhoto.new.call(result)
             if photo_data.failure?
               flash[:error] = Form.message_values(photo_data)
               routing.halt
             end
-            
+            binding.pry
             CreateNewPhoto.new(App.config).call(
               current_account: @current_account,
               album_id: album_id,
