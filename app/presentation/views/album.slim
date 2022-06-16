@@ -21,6 +21,11 @@ div class="row"
         - if album.policies.can_add_photos
           button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPhotoModal" + New Photo
     div class="row" style="height:10px;"
+    div class="row mb-4"
+      div class="col-xs-4"
+        - if album.policies.can_add_photos
+          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newEncryptedPhotoModal" + New Encrypted Photo
+    div class="row" style="height:10px;"
   div class="col-lg-3"
     div class="panel panel-default"
       div class="panel-heading" Owner
@@ -47,16 +52,5 @@ div class="row"
           button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#newParticipantModal" + Add Participant
 
 include :photo_new_partial
-include :photo_new_partia_unencrypted
+include :photo_new_partia_encrypted
 include :participant_new_partial
-
-.row
-  .text-center
-    - if album.policies.can_edit
-      a href="" edit album
-    - if album.policies.can_delete
-      == ' | '
-      a href="" delete album
-    - if album.policies.can_leave
-      == ' | '
-      a href="" leave album
