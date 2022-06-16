@@ -75,7 +75,7 @@ module DFans
 
             flash[:notice] = 'Your photo was added'
           rescue StandardError => e
-            puts "ERROR CREATING DOCUMENT: #{e.inspect}"
+            puts "ERROR CREATING PHOTO: #{e.inspect}"
             flash[:error] = 'Could not add photo'
           ensure
             routing.redirect @album_route
