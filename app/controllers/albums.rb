@@ -60,7 +60,14 @@ module DFans
 
           # POST /albums/[album_id]/photos/
           routing.post('photos') do
-            result = GetImg.get_img(routing.params)
+            begin
+              result = ProcessImg.process(routing.params)
+            rescue EncodingError => e
+              puts "ERROR ENCRYPTING PHOTO: #{e.inspect}"
+              flash[:error] = 'Could not encrypt photo, perhaps wrong key format!'
+              routing.redirect @album_route
+            end
+
             photo_data = Form::NewPhoto.new.call(result)
             if photo_data.failure?
               flash[:error] = Form.message_values(photo_data)
@@ -75,13 +82,13 @@ module DFans
 
             flash[:notice] = 'Your photo was added'
           rescue StandardError => e
-            puts "ERROR CREATING DOCUMENT: #{e.inspect}"
+            puts "ERROR CREATING PHOTO: #{e.inspect}"
             flash[:error] = 'Could not add photo'
           ensure
             routing.redirect @album_route
           end
         end
-
+        
         # GET /albums/
         routing.get do
           album_list = GetAllAlbums.new(App.config).call(@current_account)

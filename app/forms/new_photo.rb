@@ -12,6 +12,7 @@ module DFans
         required(:description).maybe(:string)
         required(:image_data).filled(:string)
         required(:filetype).filled(:string)
+        required(:enc_type).filled(:bool)
       end
     end
   end
