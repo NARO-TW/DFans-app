@@ -29,6 +29,9 @@ gem 'rbnacl' # assumes libsodium package already installed
 gem 'pry'
 gem 'rack-test'
 
+# Test Coverage
+gem 'simplecov'
+
 # Development
 group :development do
   gem 'rubocop'
