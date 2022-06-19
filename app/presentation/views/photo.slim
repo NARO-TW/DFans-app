@@ -1,4 +1,4 @@
-h2 
+h2.mt-2
   a href="/albums/#{photo.album.id}" #{photo.album.name}
 
 dl
@@ -6,12 +6,18 @@ dl
     div class="col-xs-3"
       dt Description:
     div class="col-xs-9"
-      dd class="blockquote" #{photo.description}
+      dd class="blockquote" #{photo.description}     
     div class="col-xs-3"
       dt Photo:
     div class="col-xs-9"
       dd class="blockquote"
-        a data-bs-toggle="collapse" href="#photo" aria-expanded="false" aria-controls="photo" show photo
+        a id="photo_viewer" data-bs-toggle="collapse" href="#photo" aria-expanded="false" aria-controls="photo" Show Photo
         div id="photo" class="collapse"
-          dov class="card card-body"
-            pre class="force-wrap" #{photo.image_data}
+          dov id="viewImageSection" class="card card-body"
+            img src="data:#{photo.filetype};base64,#{photo.image_data}" alt="This is the photo store in the database."
+    - if photo.enc_type == "true"
+      form role="form" action="/photos/#{photo.id}/decrypt" method='post' id='decrypt-photo-form' enctype="multipart/form-data"
+        div class="form-group"
+          label for='dec_key_input' class="form-label" Input your decryption key:
+          input type="text" name='dec_key' id="dec_key_input" class="form-control" placeholder="decryption key"
+        button type='submit' class="btn btn-primary submit" id='registration-form-submit' value='submit' Upload

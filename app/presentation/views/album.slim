@@ -1,4 +1,4 @@
-h2
+h2.mt-2
   == "#{album.name}"
 
 div class="row"
@@ -20,10 +20,6 @@ div class="row"
       div class="col-xs-4"
         - if album.policies.can_add_photos
           button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPhotoModal" + New Photo
-    div class="row mb-4"
-      div class="col-xs-4"
-        / - if album.policies.can_add_photos  
-        button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPhotoModal2" + unencrypted Photo
     div class="row" style="height:10px;"
   div class="col-lg-3"
     div class="panel panel-default"
@@ -32,7 +28,7 @@ div class="row"
         ul class="list-group"
           li class="list-group-item clearfix"
               = "#{album.owner.account_info["attributes"]["username"]}"
-      div class="panel-heading" Participants
+      div class="panel-heading mt-2" Participants
       div class="panel-body"
         - if album.participants.empty?
           span class="small" There are no participants yet
@@ -48,19 +44,7 @@ div class="row"
                     button type="submit" class="btn btn-xs btn-default"
                       span class="fas fa-user-times"
         - if album.policies.can_add_participants
-          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newParticipantModal" + Add Participant
+          button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#newParticipantModal" + Add Participant
 
 include :photo_new_partial
-include :photo_new_partia_unencrypted
 include :participant_new_partial
-
-.row
-  .text-center
-    - if album.policies.can_edit
-      a href="" edit album
-    - if album.policies.can_delete
-      == ' | '
-      a href="" delete album
-    - if album.policies.can_leave
-      == ' | '
-      a href="" leave album

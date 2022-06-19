@@ -9,9 +9,10 @@ module DFans
 
       params do
         required(:filename).filled(max_size?: 256, format?: FILENAME_REGEX)
-        required(:image_data).maybe(:string)
         required(:description).maybe(:string)
-        required(:file).filled(:hash)
+        required(:image_data).filled(:string)
+        required(:filetype).filled(:string)
+        required(:enc_type).filled(:bool)
       end
     end
   end
