@@ -18,7 +18,7 @@ module DFans
     def process_attributes(attributes)
       @id             = attributes['id']
       @filename       = attributes['filename']
-      @filetype       = attributes['filetype']      
+      @filetype       = attributes['filetype']
       @image_data     = attributes['image_data']
       @description    = attributes['description']
       @enc_type       = attributes['enc_type']

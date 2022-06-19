@@ -15,7 +15,7 @@ module DFans
 
     def call(current_account:, participant:, album_id:)
       response = HTTP.auth("Bearer #{current_account.auth_token}")
-                    .put("#{api_url}/albums/#{album_id}/participants",
+                     .put("#{api_url}/albums/#{album_id}/participants",
                           json: { email: participant[:email] })
 
       raise ParticipantNotAdded unless response.code == 200

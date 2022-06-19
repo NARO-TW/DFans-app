@@ -14,12 +14,12 @@ module DFans
             @current_account, username
           )
 
-          view :account, locals: { account: account }
+          view :account, locals: { account: }
         rescue GetAccountDetails::InvalidAccount => e
           flash[:error] = e.message
           routing.redirect '/auth/login'
         end
-        
+
         # POST /account/<registration_token>
         routing.post String do |registration_token|
           passwords = Form::Passwords.new.call(routing.params)

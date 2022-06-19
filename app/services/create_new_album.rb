@@ -16,7 +16,7 @@ module DFans
     def call(current_account:, album_data:)
       config_url = "#{api_url}/albums"
       response = HTTP.auth("Bearer #{current_account.auth_token}")
-                    .post(config_url, json: album_data)
+                     .post(config_url, json: album_data)
 
       response.code == 201 ? JSON.parse(response.body.to_s) : raise
     end

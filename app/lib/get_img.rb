@@ -1,36 +1,41 @@
+# frozen_string_literal: true
+
 require 'base64'
 require 'rbnacl'
 
 # Prcoess the image
 class ProcessImg
-    def self.process(param)
-        tempfile = param["image_data"][:tempfile]
-        filetype = param["image_data"][:type]
+  def self.process(param)
+    readfile(param)
 
-        # Open the file you wish to encode
-        data = File.open(tempfile.path).read
-        # Encode the puppy
-        encoded = Base64.strict_encode64(data)
+    param['filetype'] = param['image_data'][:type]
+    param['enc_type'] = !param['enc_key'].empty?
 
-        param["image_data"].delete(:tempfile)
-        tempfile.close
-        tempfile.unlink  # deletes the temp file
+    param
+  end
 
-        param["filetype"] = filetype
-        param["enc_type"] = param["enc_key"].empty? ? false : true
-        param["image_data"] = param["enc_key"].empty? ? encoded : encrypt(encoded, param["enc_key"])
-        
-        return param
-    end
+  def self.readfile(param)
+    tempfile = param['image_data'][:tempfile]
 
-    def self.encrypt(plaintext, base64_key)
-        return nil unless plaintext
+    # Open the file you wish to encode
+    data = File.read(tempfile.path)
+    # Encode the puppy
+    encoded = Base64.strict_encode64(data)
+    param['image_data'] = param['enc_key'].empty? ? encoded : encrypt(encoded, param['enc_key'])
 
-        key = Base64.strict_decode64(base64_key)
+    param['image_data'].delete(:tempfile)
+    tempfile.close
+    tempfile.unlink  # deletes the temp file
+  end
 
-        simple_box = RbNaCl::SimpleBox.from_secret_key(key)
-        ciphertext = simple_box.encrypt(plaintext)
+  def self.encrypt(plaintext, base64_key)
+    return nil unless plaintext
 
-        Base64.urlsafe_encode64(ciphertext)
-    end
+    key = Base64.strict_decode64(base64_key)
+
+    simple_box = RbNaCl::SimpleBox.from_secret_key(key)
+    ciphertext = simple_box.encrypt(plaintext)
+
+    Base64.urlsafe_encode64(ciphertext)
+  end
 end

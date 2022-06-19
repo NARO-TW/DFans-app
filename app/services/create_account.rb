@@ -17,9 +17,9 @@ module DFans
     end
 
     def call(email:, username:, password:)
-      message = { email: email,
-                  username: username,
-                  password: password}
+      message = { email:,
+                  username:,
+                  password: }
 
       response = HTTP.post(
         "#{@config.API_URL}/accounts/",
