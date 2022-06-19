@@ -6,11 +6,9 @@ require 'rbnacl'
 # Prcoess the image
 class ProcessImg
   def self.process(param)
-    readfile(param)
-
     param['filetype'] = param['image_data'][:type]
     param['enc_type'] = !param['enc_key'].empty?
-
+    readfile(param)
     param
   end
 
@@ -19,13 +17,13 @@ class ProcessImg
 
     # Open the file you wish to encode
     data = File.read(tempfile.path)
+
     # Encode the puppy
     encoded = Base64.strict_encode64(data)
-    param['image_data'] = param['enc_key'].empty? ? encoded : encrypt(encoded, param['enc_key'])
-
     param['image_data'].delete(:tempfile)
     tempfile.close
     tempfile.unlink  # deletes the temp file
+    param['image_data'] = param['enc_key'].empty? ? encoded : encrypt(encoded, param['enc_key'])
   end
 
   def self.encrypt(plaintext, base64_key)

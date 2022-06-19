@@ -73,7 +73,6 @@ module DFans
               flash[:error] = Form.message_values(photo_data)
               routing.halt
             end
-            puts "After Form: photo_data: #{photo_data}"
             CreateNewPhoto.new(App.config).call(
               current_account: @current_account,
               album_id:,
