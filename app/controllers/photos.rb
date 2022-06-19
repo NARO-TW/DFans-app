@@ -10,15 +10,13 @@ module DFans
     route('photos') do |routing|
       routing.redirect '/auth/login' unless @current_account.logged_in?
 
-
       routing.on(String) do |pho_id|
         # GET /photos/[pho_id]
         routing.get do
-          pho_info = GetPhoto.new(App.config)
-                      .call(@current_account, pho_id)
+          pho_info = GetPhoto.new(App.config).call(@current_account, pho_id)
           photo = Photo.new(pho_info)
           view :photo, locals: {
-            current_account: @current_account, photo: photo
+            current_account: @current_account, photo:
             ## photo:
             # filename: string
             # filetype: image/png
@@ -30,13 +28,12 @@ module DFans
 
         # POST /photos/[pho_id]/decrypt
         routing.post('decrypt') do
-          encrypted_pho_info = GetPhoto.new(App.config)
-                                .call(@current_account, pho_id)
+          encrypted_pho_info = GetPhoto.new(App.config).call(@current_account, pho_id)
 
           begin
-            result = DecryptionHelper.decrypt(encrypted_pho_info["attributes"]["image_data"], routing.params["dec_key"])
-            encrypted_pho_info["attributes"]["image_data"] = result
-            encrypted_pho_info["attributes"]["enc_type="] = "false"
+            result = DecryptionHelper.decrypt(encrypted_pho_info['attributes']['image_data'], routing.params['dec_key'])
+            encrypted_pho_info['attributes']['image_data'] = result
+            encrypted_pho_info['attributes']['enc_type='] = 'false'
           rescue EncodingError => e
             puts "ERROR DECRYPTING PHOTO: #{e.inspect}"
             flash[:error] = 'Could not decrypt photo, perhaps wrong key format'
@@ -61,6 +58,7 @@ module DFans
     end
   end
 
+  # Decryption Helper for photos
   class DecryptionHelper
     def self.decrypt(base64_plaintext, base64_key)
       return nil unless base64_plaintext

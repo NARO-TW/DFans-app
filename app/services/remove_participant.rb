@@ -15,8 +15,8 @@ module DFans
 
     def call(current_account:, participant:, album_id:)
       response = HTTP.auth("Bearer #{current_account.auth_token}")
-                    .delete("#{api_url}/albums/#{album_id}/participants",
-                            json: { email: participant[:email] })
+                     .delete("#{api_url}/albums/#{album_id}/participants",
+                             json: { email: participant[:email] })
 
       raise ParticipantNotRemoved unless response.code == 200
     end

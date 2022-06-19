@@ -20,7 +20,7 @@ module DFans
             )
             album = Album.new(album_info)
             view :album, locals: {
-              current_account: @current_account, album: album
+              current_account: @current_account, album:
             }
           rescue StandardError => e
             puts "#{e.inspect}\n#{e.backtrace}"
@@ -48,7 +48,7 @@ module DFans
             task[:service].new(App.config).call(
               current_account: @current_account,
               participant: participant_info,
-              album_id: album_id
+              album_id:
             )
             flash[:notice] = task[:message]
 
@@ -73,10 +73,9 @@ module DFans
               flash[:error] = Form.message_values(photo_data)
               routing.halt
             end
-            puts "After Form: photo_data: #{photo_data}"
             CreateNewPhoto.new(App.config).call(
               current_account: @current_account,
-              album_id: album_id,
+              album_id:,
               photo_data: photo_data.to_h
             )
 
@@ -88,7 +87,7 @@ module DFans
             routing.redirect @album_route
           end
         end
-        
+
         # GET /albums/
         routing.get do
           album_list = GetAllAlbums.new(App.config).call(@current_account)
@@ -96,7 +95,7 @@ module DFans
           albums = Albums.new(album_list)
 
           view :albums_all, locals: {
-            current_account: @current_account, albums: albums
+            current_account: @current_account, albums:
           }
         end
 

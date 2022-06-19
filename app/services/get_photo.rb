@@ -11,7 +11,7 @@ module DFans
 
     def call(user, pho_id)
       response = HTTP.auth("Bearer #{user.auth_token}")
-                    .get("#{@config.API_URL}/photos/#{pho_id}")
+                     .get("#{@config.API_URL}/photos/#{pho_id}")
 
       response.code == 200 ? JSON.parse(response.body.to_s)['data'] : nil
     end

@@ -10,8 +10,8 @@ module DFans
     class ApiServerError < StandardError; end
 
     def call(username:, password:)
-      response = HTTP.post("#{ENV['API_URL']}/auth/authenticate",
-                           json: { username: username, password: password})
+      response = HTTP.post("#{ENV.fetch('API_URL')}/auth/authenticate",
+                           json: { username:, password: })
 
       raise(NotAuthenticatedError) if response.code == 401
       raise(ApiServerError) if response.code != 200

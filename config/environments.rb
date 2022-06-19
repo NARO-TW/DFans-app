@@ -17,7 +17,7 @@ module DFans
 
     # Environment variables setup
     Figaro.application = Figaro::Application.new(
-      environment: environment,
+      environment:,
       path: File.expand_path('config/secrets.yml')
     )
     Figaro.load
@@ -45,13 +45,13 @@ module DFans
       use Rack::SslEnforcer, hsts: true
 
       use Rack::Session::Redis,
-        expire_after: ONE_MONTH,
-        redis_server: {
-          url: ENV.delete('REDIS_TLS_URL'),
-          ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
-        }
+          expire_after: ONE_MONTH,
+          redis_server: {
+            url: ENV.delete('REDIS_TLS_URL'),
+            ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
+          }
     end
-    
+
     configure :development, :test do
       require 'pry'
 

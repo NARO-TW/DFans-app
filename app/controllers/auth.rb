@@ -5,7 +5,7 @@ require_relative './app'
 
 module DFans
   # Web controller for DFans APP
-  class App < Roda
+  class App < Roda # rubocop:disable Metrics/ClassLength
     def gh_oauth_url(config)
       url = config.GH_OAUTH_URL
       client_id = config.GH_CLIENT_ID
@@ -19,7 +19,7 @@ module DFans
       @login_route = '/auth/login'
       routing.is 'login' do
         # GET /auth/login
-        routing.get do 
+        routing.get do
           view :login, locals: {
             gh_oauth_url: gh_oauth_url(App.config)
           }
@@ -133,8 +133,8 @@ module DFans
           flash.now[:notice] = 'Email Verified! Please choose a new password'
           new_account = SecureMessage.decrypt(registration_token)
           view :register_confirm,
-               locals: { new_account: new_account,
-                         registration_token: registration_token}
+               locals: { new_account:,
+                         registration_token: }
         end
       end
     end
